@@ -81,11 +81,7 @@
 //     document.getElementById('dots-btn').innerHTML = html;
 // });
 
-
-
-
-
-var startLoop = false;
+var startLoop = true;
 const sliderInteval = setInterval(() => {
 
     // we will remove this code to put into the settime
@@ -122,8 +118,6 @@ const sliderInteval = setInterval(() => {
     
 }, 2000);
 
-
-
 function addDots(){
     // console.log("this is done")
     totalLen = document.querySelectorAll(".slide-selector").length;
@@ -156,7 +150,7 @@ function addDots(){
                 if(totalActiveSlide.length){
                     totalActiveSlide.forEach(ele => {
                         ele.classList.remove('active');
-                        ele.style.display = 'none';                        
+                        ele.style.display = 'none';
                     })
                 }
                 
@@ -164,8 +158,6 @@ function addDots(){
         })
     }, 2)
 }
-
-
 
 document.getElementById("for-nav").addEventListener('click', () => {
     // console.log("im form the forword tab")
@@ -226,6 +218,47 @@ document.getElementById("pre-nav").addEventListener('click', () => {
 setTimeout(()=>{
     addDots()
 }, 500)
+
+// verti slide click
+vertiSlides = document.querySelectorAll(".verti-sli-sel");
+vertiSlides.forEach(ele => {
+    ele.addEventListener('click', () => {
+        startLoop = false;
+        clickedIndex = Array.from(vertiSlides).indexOf(event.target);
+        // verticle slide tab Active
+        vertiSlidesActive = document.querySelectorAll(".verti-sli-sel.active");
+
+        // Horizontal slide tabs
+        totalSlidesTag = document.querySelectorAll(".slide-selector");
+        totalActiveSlide = document.querySelectorAll(".slide-selector.active");
+        
+        // dots 
+        totalDots = document.querySelectorAll(".dots-element-btn")
+        totalcurrentDots = document.querySelectorAll(".dots-element-btn")
+        
+        // remove current active or current slides
+        vertiSlidesActive.forEach((ele) => {
+            ele.classList.remove('active');
+            // ele.style.display = 'none';
+        })
+        totalActiveSlide.forEach((ele) => {
+            ele.classList.remove('active');
+            ele.style.display = 'none';
+        })
+        totalcurrentDots.forEach((ele) => {
+            ele.classList.remove('current');
+            // ele.style.display = 'none';
+        })
+
+        // addClasses to new slide
+        vertiSlides[clickedIndex].classList.add('active');
+        totalSlidesTag[clickedIndex].classList.add('active');
+        totalDots[clickedIndex].classList.add('current');
+
+        totalSlidesTag[clickedIndex].style.display = "";
+
+    })
+})
 
 
 

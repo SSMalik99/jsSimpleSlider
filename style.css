@@ -1,8 +1,35 @@
 body{
     background-color: black;
     color: white;
+    padding: 0px;
+    margin: 0px;
     /* min-width: 400px; */
     /* min-height: 500px; */
+}
+.main-content{
+    display: flex;
+}
+.verti-slider{
+    /* min-width: 15%; */
+    width: 15%;
+    display: inline;
+    margin: 2%;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+
+.verti-sli-sel{
+    height: 112.5px;
+}
+.verti-next{
+    margin-top: 2%;
+}
+
+.hori-slider{
+    width: 85%;
+    display: inline;
+    margin: 2%;
 }
 
 .payment-success{
@@ -11,9 +38,14 @@ body{
 .payment-failure{
     color:tomato
 }
+#slider-outer{
+    overflow: hidden;
+    /* overflow-y: scroll; */
+    max-height: 700px;
+}
 .slide-selector{
 
-    min-height: 400px;
+    min-height: 700px;
     /* height: auto; */
     width: auto;
     color: black;
@@ -21,11 +53,7 @@ body{
     text-align: center;
     /* margin: 50px; */
 }
-#slider-outer{
-    overflow: hidden;
-    /* overflow-y: scroll; */
-    max-height: 400px;
-}
+
 .nav-btn{
     /* text-align: center; */
     margin-top: 6px;
