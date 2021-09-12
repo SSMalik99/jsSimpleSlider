@@ -93,6 +93,7 @@ const sliderInteval = setInterval(() => {
     if(startLoop){
         totalSlidesTag = document.querySelectorAll(".slide-selector");
         dotsElement = document.querySelectorAll('.dots-element-btn');
+        vertiSlides = document.querySelectorAll(".verti-sli-sel");
         // console.log(dotsElement)
         totalLen = totalSlidesTag.length;
         currentIndex = 0; //just to initialize the variable
@@ -104,6 +105,7 @@ const sliderInteval = setInterval(() => {
         }
 
         totalSlidesTag[currentIndex].classList.remove("active");
+        vertiSlides[currentIndex].classList.remove("active");
         totalSlidesTag[currentIndex].style.display="none";
         dotsElement[currentIndex].classList.remove('current')
 
@@ -111,6 +113,7 @@ const sliderInteval = setInterval(() => {
 
         totalSlidesTag[nextIndex].style.display = "";
         totalSlidesTag[nextIndex].classList.add("active");
+        vertiSlides[nextIndex].classList.add("active");
         dotsElement[nextIndex].classList.add('current')
     }else{
         startLoop = true;
@@ -123,7 +126,7 @@ function addDots(){
     totalLen = document.querySelectorAll(".slide-selector").length;
     html = `<button class="dots-element-btn current"></button>`; // only for the initialize
     
-    for (let j = 0; j < totalLen-1 ; j++) {
+    for (let j = 0; j < totalLen-1; j++) {
         html += `<button class="dots-element-btn"></button>`
     }
 
@@ -132,26 +135,33 @@ function addDots(){
     setTimeout(() => {
         var dotBtns = document.querySelectorAll(".dots-element-btn")
         dotBtns.forEach(ele => {
-
             ele.addEventListener('click', () => {
                 startLoop = false;
                 totalSlidesTag = document.querySelectorAll(".slide-selector");
-                totalActiveSlide = document.querySelectorAll(".slide-selector.active");
+                activeSlide = document.querySelector(".slide-selector.active");
+                vertiSlides = document.querySelectorAll(".verti-sli-sel");
+                vertiSlideActive = document.querySelector(".verti-sli-sel.active");
+                currentDotBtn = document.querySelector(".dots-element-btn.current")
+                
+                previousIndex = Array.from(dotBtns).indexOf(currentDotBtn);
+                currentDotBtn.classList.remove('current')
 
-                dotBtns.forEach(ele => {
-                    ele.classList.remove('current')
-                })
+                // myarr = [1,2,3]
+                // myarr = new Array;
+                // myarr  = [1,2,3]
+
                 clickedIndex = Array.from(dotBtns).indexOf(event.target);
                 event.target.classList.add('current');
+                // console.log(previousIndex, clickedIndex)
 
-                totalSlidesTag[clickedIndex].style.display = "";
-                totalSlidesTag[clickedIndex].classList.add("active");
-                
-                if(totalActiveSlide.length){
-                    totalActiveSlide.forEach(ele => {
-                        ele.classList.remove('active');
-                        ele.style.display = 'none';
-                    })
+                if(previousIndex!=clickedIndex){
+                    totalSlidesTag[clickedIndex].style.display = "";
+                    totalSlidesTag[clickedIndex].classList.add("active");
+                    vertiSlides[clickedIndex].classList.add('active');                
+                    
+                    activeSlide.classList.remove('active');
+                    activeSlide.style.display = 'none';
+                    vertiSlideActive.classList.remove('active');
                 }
                 
             })
@@ -164,6 +174,7 @@ document.getElementById("for-nav").addEventListener('click', () => {
     startLoop = false;
     totalSlidesTag = document.querySelectorAll(".slide-selector");
     dotsElement = document.querySelectorAll('.dots-element-btn');
+    vertiSlides = document.querySelectorAll(".verti-sli-sel");
     totalLen = totalSlidesTag.length;
     currentIndex = 0; //just to initialize the variable
 
@@ -175,11 +186,14 @@ document.getElementById("for-nav").addEventListener('click', () => {
 
     totalSlidesTag[currentIndex].classList.remove("active");
     dotsElement[currentIndex].classList.remove('current')
+    vertiSlides[currentIndex].classList.remove('active');
     totalSlidesTag[currentIndex].style.display="none";
 
     nextIndex = currentIndex != (totalLen-1) ? currentIndex+1 : 0 ;
+
     totalSlidesTag[nextIndex].style.display = "";
     totalSlidesTag[nextIndex].classList.add("active");
+    vertiSlides[nextIndex].classList.add('active');
     dotsElement[nextIndex].classList.add('current')
     // console.log(totalSlidesTag[nextIndex]);
 
@@ -192,6 +206,7 @@ document.getElementById("pre-nav").addEventListener('click', () => {
     startLoop = false;
     totalSlidesTag = document.querySelectorAll(".slide-selector");
     dotsElement = document.querySelectorAll('.dots-element-btn');
+    vertiSlides = document.querySelectorAll(".verti-sli-sel");
     totalLen = totalSlidesTag.length;
     currentIndex = 0; //just to initialize the variable
 
@@ -201,14 +216,18 @@ document.getElementById("pre-nav").addEventListener('click', () => {
         };
     }
 
+    // console.log(vertiSlides[currentIndex]);
     totalSlidesTag[currentIndex].classList.remove("active");
-    dotsElement[currentIndex].classList.remove('current')
+    dotsElement[currentIndex].classList.remove('current');
+    vertiSlides[currentIndex].classList.remove('active');
     totalSlidesTag[currentIndex].style.display="none";
 
     nextIndex = currentIndex != 0 ? currentIndex-1 : (totalLen-1) ;
+
     totalSlidesTag[nextIndex].style.display = "";
     totalSlidesTag[nextIndex].classList.add("active");
-    dotsElement[nextIndex].classList.add('current')
+    vertiSlides[nextIndex].classList.add('active');
+    dotsElement[nextIndex].classList.add('current');
     // console.log(totalSlidesTag[nextIndex]);
 
     // activeEle = document.querySelectorAll(".slide-selector.active");
@@ -226,36 +245,29 @@ vertiSlides.forEach(ele => {
         startLoop = false;
         clickedIndex = Array.from(vertiSlides).indexOf(event.target);
         // verticle slide tab Active
-        vertiSlidesActive = document.querySelectorAll(".verti-sli-sel.active");
+        vertiSlidesActive = document.querySelector(".verti-sli-sel.active");
 
         // Horizontal slide tabs
         totalSlidesTag = document.querySelectorAll(".slide-selector");
-        totalActiveSlide = document.querySelectorAll(".slide-selector.active");
+        ActiveSlide = document.querySelector(".slide-selector.active");
         
         // dots 
         totalDots = document.querySelectorAll(".dots-element-btn")
-        totalcurrentDots = document.querySelectorAll(".dots-element-btn")
+        currentDot = document.querySelector(".dots-element-btn.current")
         
-        // remove current active or current slides
-        vertiSlidesActive.forEach((ele) => {
-            ele.classList.remove('active');
-            // ele.style.display = 'none';
-        })
-        totalActiveSlide.forEach((ele) => {
-            ele.classList.remove('active');
-            ele.style.display = 'none';
-        })
-        totalcurrentDots.forEach((ele) => {
-            ele.classList.remove('current');
-            // ele.style.display = 'none';
-        })
-
         // addClasses to new slide
         vertiSlides[clickedIndex].classList.add('active');
         totalSlidesTag[clickedIndex].classList.add('active');
         totalDots[clickedIndex].classList.add('current');
 
         totalSlidesTag[clickedIndex].style.display = "";
+
+        // remove current active or current slides
+        vertiSlidesActive.classList.remove('active');
+        ActiveSlide.classList.remove('active');
+        ActiveSlide.style.display = 'none';
+        
+        currentDot.classList.remove('current');
 
     })
 })

@@ -19,6 +19,10 @@ body{
     text-align: center;
 }
 
+.verti-sli-sel.active{
+    border: 5px white solid;
+}
+
 .verti-sli-sel{
     height: 112.5px;
 }
