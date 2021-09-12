@@ -1,0 +1,55 @@
+body{
+    background-color: black;
+    color: white;
+    /* min-width: 400px; */
+    /* min-height: 500px; */
+}
+
+.payment-success{
+    color: green;
+}
+.payment-failure{
+    color:tomato
+}
+.slide-selector{
+
+    min-height: 400px;
+    /* height: auto; */
+    width: auto;
+    color: black;
+    font-size: 60px;
+    text-align: center;
+    /* margin: 50px; */
+}
+#slider-outer{
+    overflow: hidden;
+    /* overflow-y: scroll; */
+    max-height: 400px;
+}
+.nav-btn{
+    text-align: center;
+    margin-top: 6px;
+}
+.nav-sub-btn {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 25px;
+    padding-left: 25px;
+    background-color: darkgray;
+    font-size: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.nav-sub-btn:hover{
+    background-color: white;
+}
+
+
+
+
+
+
+
+
+
+
