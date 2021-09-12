@@ -70,10 +70,108 @@
 
 // document.getElementById("payment-btn").addEventListener('click', paymentMethod);
 
+// document.getElementById("dots-btn").addEventListener('load', () =>{
+//     totalLen = document.querySelectorAll(".slide-selector").length;
+//     console.log(totalLen)
+//     html = ""; // only for the initialize
+    
+//     for (let j = 0; j < totalLen; j++) {
+//         html += `<button class="dots-element-btn"></button>`
+//     }
+//     document.getElementById('dots-btn').innerHTML = html;
+// });
+
+
+
+
+
+var startLoop = false;
+const sliderInteval = setInterval(() => {
+
+    // we will remove this code to put into the settime
+    // if(!dotsAdded){
+    //     addDots()
+    // }
+    // dotsAdded = true
+
+    if(startLoop){
+        totalSlidesTag = document.querySelectorAll(".slide-selector");
+        dotsElement = document.querySelectorAll('.dots-element-btn');
+        // console.log(dotsElement)
+        totalLen = totalSlidesTag.length;
+        currentIndex = 0; //just to initialize the variable
+
+        for (let i = 0; i < totalLen; i++) {
+            if(totalSlidesTag[i].classList.value.split(" ").includes('active')){
+                currentIndex = i;
+            };
+        }
+
+        totalSlidesTag[currentIndex].classList.remove("active");
+        totalSlidesTag[currentIndex].style.display="none";
+        dotsElement[currentIndex].classList.remove('current')
+
+        nextIndex = currentIndex != (totalLen-1) ? currentIndex+1 : 0 ;
+
+        totalSlidesTag[nextIndex].style.display = "";
+        totalSlidesTag[nextIndex].classList.add("active");
+        dotsElement[nextIndex].classList.add('current')
+    }else{
+        startLoop = true;
+    }
+    
+}, 2000);
+
+
+
+function addDots(){
+    // console.log("this is done")
+    totalLen = document.querySelectorAll(".slide-selector").length;
+    html = `<button class="dots-element-btn current"></button>`; // only for the initialize
+    
+    for (let j = 0; j < totalLen-1 ; j++) {
+        html += `<button class="dots-element-btn"></button>`
+    }
+
+    document.getElementById('dots-btn').innerHTML = html;
+
+    setTimeout(() => {
+        var dotBtns = document.querySelectorAll(".dots-element-btn")
+        dotBtns.forEach(ele => {
+
+            ele.addEventListener('click', () => {
+                startLoop = false;
+                totalSlidesTag = document.querySelectorAll(".slide-selector");
+                totalActiveSlide = document.querySelectorAll(".slide-selector.active");
+
+                dotBtns.forEach(ele => {
+                    ele.classList.remove('current')
+                })
+                clickedIndex = Array.from(dotBtns).indexOf(event.target);
+                event.target.classList.add('current');
+
+                totalSlidesTag[clickedIndex].style.display = "";
+                totalSlidesTag[clickedIndex].classList.add("active");
+                
+                if(totalActiveSlide.length){
+                    totalActiveSlide.forEach(ele => {
+                        ele.classList.remove('active');
+                        ele.style.display = 'none';                        
+                    })
+                }
+                
+            })
+        })
+    }, 2)
+}
+
+
 
 document.getElementById("for-nav").addEventListener('click', () => {
     // console.log("im form the forword tab")
+    startLoop = false;
     totalSlidesTag = document.querySelectorAll(".slide-selector");
+    dotsElement = document.querySelectorAll('.dots-element-btn');
     totalLen = totalSlidesTag.length;
     currentIndex = 0; //just to initialize the variable
 
@@ -84,10 +182,13 @@ document.getElementById("for-nav").addEventListener('click', () => {
     }
 
     totalSlidesTag[currentIndex].classList.remove("active");
+    dotsElement[currentIndex].classList.remove('current')
     totalSlidesTag[currentIndex].style.display="none";
+
     nextIndex = currentIndex != (totalLen-1) ? currentIndex+1 : 0 ;
     totalSlidesTag[nextIndex].style.display = "";
     totalSlidesTag[nextIndex].classList.add("active");
+    dotsElement[nextIndex].classList.add('current')
     // console.log(totalSlidesTag[nextIndex]);
 
     // activeEle = document.querySelectorAll(".slide-selector.active");
@@ -96,8 +197,9 @@ document.getElementById("for-nav").addEventListener('click', () => {
 })
 
 document.getElementById("pre-nav").addEventListener('click', () => {
-    // console.log("im form the previous tab")
+    startLoop = false;
     totalSlidesTag = document.querySelectorAll(".slide-selector");
+    dotsElement = document.querySelectorAll('.dots-element-btn');
     totalLen = totalSlidesTag.length;
     currentIndex = 0; //just to initialize the variable
 
@@ -108,35 +210,24 @@ document.getElementById("pre-nav").addEventListener('click', () => {
     }
 
     totalSlidesTag[currentIndex].classList.remove("active");
+    dotsElement[currentIndex].classList.remove('current')
     totalSlidesTag[currentIndex].style.display="none";
+
     nextIndex = currentIndex != 0 ? currentIndex-1 : (totalLen-1) ;
     totalSlidesTag[nextIndex].style.display = "";
     totalSlidesTag[nextIndex].classList.add("active");
+    dotsElement[nextIndex].classList.add('current')
     // console.log(totalSlidesTag[nextIndex]);
 
     // activeEle = document.querySelectorAll(".slide-selector.active");
     // console.log(totalSlidesTag, totalLen, activeEle);
 })
 
-setInterval(() => {
+setTimeout(()=>{
+    addDots()
+}, 500)
 
-    totalSlidesTag = document.querySelectorAll(".slide-selector");
-    totalLen = totalSlidesTag.length;
-    currentIndex = 0; //just to initialize the variable
 
-    for (let i = 0; i < totalLen; i++) {
-        if(totalSlidesTag[i].classList.value.split(" ").includes('active')){
-            currentIndex = i;
-        };
-    }
-
-    totalSlidesTag[currentIndex].classList.remove("active");
-    totalSlidesTag[currentIndex].style.display="none";
-    nextIndex = currentIndex != (totalLen-1) ? currentIndex+1 : 0 ;
-    totalSlidesTag[nextIndex].style.display = "";
-    totalSlidesTag[nextIndex].classList.add("active");
-    
-}, 2000);
 
 
 

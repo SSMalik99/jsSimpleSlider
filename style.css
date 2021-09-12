@@ -27,8 +27,10 @@ body{
     max-height: 400px;
 }
 .nav-btn{
-    text-align: center;
+    /* text-align: center; */
     margin-top: 6px;
+    display: flex;
+    justify-content: space-around;
 }
 .nav-sub-btn {
     padding-top: 5px;
@@ -43,7 +45,17 @@ body{
 .nav-sub-btn:hover{
     background-color: white;
 }
-
+.dots-element-btn{
+    border-radius: 50%;
+    padding: 5px;
+    background-color: darkgray;
+}
+.dots-element-btn:hover{
+    background-color: white;
+}
+.dots-element-btn.current{
+    background-color: white;
+}
 
 
 
