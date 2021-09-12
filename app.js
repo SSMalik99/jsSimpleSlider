@@ -255,19 +255,23 @@ vertiSlides.forEach(ele => {
         totalDots = document.querySelectorAll(".dots-element-btn")
         currentDot = document.querySelector(".dots-element-btn.current")
         
-        // addClasses to new slide
-        vertiSlides[clickedIndex].classList.add('active');
-        totalSlidesTag[clickedIndex].classList.add('active');
-        totalDots[clickedIndex].classList.add('current');
-
-        totalSlidesTag[clickedIndex].style.display = "";
-
-        // remove current active or current slides
-        vertiSlidesActive.classList.remove('active');
-        ActiveSlide.classList.remove('active');
-        ActiveSlide.style.display = 'none';
+        previousIndex = Array.from(totalDots).indexOf(currentDot);
         
-        currentDot.classList.remove('current');
+        if(clickedIndex != previousIndex){
+            // addClasses to new slide
+            vertiSlides[clickedIndex].classList.add('active');
+            totalSlidesTag[clickedIndex].classList.add('active');
+            totalDots[clickedIndex].classList.add('current');
+
+            totalSlidesTag[clickedIndex].style.display = "";
+
+            // remove current active or current slides
+            vertiSlidesActive.classList.remove('active');
+            ActiveSlide.classList.remove('active');
+            ActiveSlide.style.display = 'none';
+            
+            currentDot.classList.remove('current');
+        }
 
     })
 })
